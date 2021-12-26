@@ -4,10 +4,23 @@ import { v4 as uuidv4 } from 'uuid';
 
 export default function App() {
     
+    // Estado 
     const [tasks, setTasks] = useState([])
 
+    // Referencias
     const taskDescriptionRef = useRef()
 
+    // Funciones
+    const toggleTask = (id) => {
+        const newTasks = [...tasks]
+        let task = newTasks.find(task => task.id === id)
+        task.completed = !task.completed
+
+        setTasks(newTasks)
+    }
+
+
+    // Handlers
     const handlerAddTask = () => {
         let id = uuidv4()
         let description = taskDescriptionRef.current.value
@@ -24,14 +37,7 @@ export default function App() {
         setTasks(incompletedTasks)
     }
 
-    const toggleTask = (id) => {
-        const newTasks = [...tasks]
-        let task = newTasks.find(task => task.id === id)
-        task.completed = !task.completed
-
-        setTasks(newTasks)
-    }
-
+    // Render
     return <Fragment>  
         <fieldset>
             <legend>New Task</legend>
